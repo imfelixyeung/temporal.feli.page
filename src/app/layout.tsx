@@ -1,17 +1,18 @@
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 import Main from "@/components/layout/main";
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
 });
 
@@ -26,10 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" className={cn(geistSans.variable, geistMono.variable)}>
+      <body>
         <div
           id="app"
           className="min-h-svh grid grid-cols-1 grid-rows-[auto_1fr_auto]"
