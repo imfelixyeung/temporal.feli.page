@@ -30,7 +30,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div id="app">
+        <div
+          id="app"
+          className="min-h-svh grid grid-cols-1 grid-rows-[auto_1fr_auto]"
+        >
           <Header />
           <Main>{children}</Main>
           <Footer />

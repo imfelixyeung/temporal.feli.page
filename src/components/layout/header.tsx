@@ -5,8 +5,8 @@ const Header = ({
   ...props
 }: Omit<ComponentProps<"header">, "children">) => {
   return (
-    <header className={className} {...props}>
-      Header
+    <header className={"border-b py-2 " + className} {...props}>
+      <div className="container font-medium text-lg">Temporal</div>
     </header>
   );
 };

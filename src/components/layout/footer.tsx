@@ -5,8 +5,8 @@ const Footer = ({
   ...props
 }: Omit<ComponentProps<"footer">, "children">) => {
   return (
-    <footer className={className} {...props}>
-      Footer
+    <footer className={"border-t py-3 " + className} {...props}>
+      <div></div>
     </footer>
   );
 };

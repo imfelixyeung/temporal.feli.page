@@ -2,7 +2,7 @@ import { ComponentProps } from "react";
 
 const Main = ({ children, className, ...props }: ComponentProps<"main">) => {
   return (
-    <main className={className} {...props}>
+    <main className={"container py-8 " + className} {...props}>
       {children}
     </main>
   );
