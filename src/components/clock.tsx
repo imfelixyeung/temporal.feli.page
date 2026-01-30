@@ -1,16 +1,17 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useClockStore } from "@/store/clock";
+import { useMemo } from "react";
 import { useInterval } from "react-use";
 
 const start = new Date(0);
 const startString = start.toDateString();
 
 export default function Clock() {
-  const [now, setNow] = useState(() => new Date());
+  const { time: now, tick } = useClockStore();
 
   // Update the clock every second
-  useInterval(() => setNow(new Date()), 1000);
+  useInterval(tick, 1000);
 
   const { seconds, time } = useMemo(
     () => ({
