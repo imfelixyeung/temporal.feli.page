@@ -30,7 +30,19 @@ This file guides Claude Code when working with this repository.
 - `components/ui/*`: shadcn component wrappers.
 - `src/utils/*`: helper functions.
 
+## Git Commit Convention
+This project follows **Conventional Commits** format for git commits:
+- Use `feat:` for new features
+- Use `fix:` for bug fixes  
+- Use `docs:` for documentation changes
+- Use `refactor:` for code refactoring
+- Use `chore:` for maintenance tasks
+- Use `perf:` for performance improvements
+
+Example: `feat: add timestamp conversion tools with validation`
+
 ## Helpful Tips for Future Instances
 - Use `pnpm dev` for hot‑reloading during development.
 - Run tests with Jest (configured via `jest.config.js`; see test scripts).
 - Refer to the README for deployment instructions on Vercel.
+- Always use conventional commits when committing changes.
