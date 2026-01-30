@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useMemo, useState } from "react";
+import { ButtonGroup } from "../ui/button-group";
 
 export default function DateTimeToTimestamp() {
   const [date, setDate] = useState<string>("");
@@ -50,30 +51,24 @@ export default function DateTimeToTimestamp() {
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-2">
+      <ButtonGroup className="flex w-full">
         <Input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="flex-1"
+          className="grow"
         />
         <Input
           type="time"
           value={time}
           onChange={(e) => setTime(e.target.value)}
           step="1"
-          className="w-32"
+          className="grow"
         />
-      </div>
-
-      <div className="flex gap-2">
-        <Button variant="outline" className="flex-1" disabled={!date}>
-          Convert
-        </Button>
         <Button onClick={handleCurrentDateTime} variant="outline">
           Current
         </Button>
-      </div>
+      </ButtonGroup>
 
       {error && (
         <div

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { format } from "date-fns";
 import { useMemo, useState } from "react";
+import { ButtonGroup } from "../ui/button-group";
 
 export default function TimestampToDateTime() {
   const [timestamp, setTimestamp] = useState<string>("");
@@ -49,18 +50,18 @@ export default function TimestampToDateTime() {
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-2">
+      <ButtonGroup className="w-full">
         <Input
           type="number"
           placeholder="Enter Unix timestamp"
           value={timestamp}
           onChange={(e) => setTimestamp(e.target.value)}
-          className="flex-1"
+          className="grow"
         />
         <Button onClick={handleCurrentTimestamp} variant="outline">
           Current
         </Button>
-      </div>
+      </ButtonGroup>
 
       {error && (
         <div className="rounded-md border border-red-600/20 bg-red-600/20 p-3 text-sm">
