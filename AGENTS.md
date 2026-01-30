@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file guides Claude Code when working with this repository.
+This file guides AI coding agents when working with this repository.
 
 ## Common Commands
 
@@ -48,7 +48,7 @@ This project follows **Conventional Commits** format for git commits:
 
 Example: `feat: add timestamp conversion tools with validation`
 
-## Helpful Tips for Future Instances
+## Helpful Tips for Future Agents
 
 - Use `pnpm dev` for hot‑reloading during development.
 - Run tests with Jest (configured via `jest.config.js`; see test scripts).
