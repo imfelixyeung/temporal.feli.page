@@ -8,6 +8,7 @@ This file guides Claude Code when working with this repository.
 - **Build for production**: `pnpm build`.
 - **Serve built app**: `pnpm start`.
 - **Lint**: `pnpm lint`.
+- **Format code**: `pnpm format:fix` (to fix) or `pnpm format:check` (to check).
 - **Run a single test file**: `pnpm test -- <path>` (e.g., `pnpm test -- tests/example.test.ts`).
 
 ## Project Structure Overview
