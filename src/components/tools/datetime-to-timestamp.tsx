@@ -10,9 +10,9 @@ export default function DateTimeToTimestamp() {
 
   const handleCurrentDateTime = () => {
     const now = new Date();
-    const dateStr = now.toISOString().split('T')[0];
-    const timeStr = now.toTimeString().split(' ')[0].substring(0, 8);
-    
+    const dateStr = now.toISOString().split("T")[0];
+    const timeStr = now.toTimeString().split(" ")[0].substring(0, 8);
+
     setDate(dateStr);
     setTime(timeStr);
   };
@@ -24,19 +24,22 @@ export default function DateTimeToTimestamp() {
 
     const timeValue = time || "00:00:00";
     const dateTimeString = `${date}T${timeValue}`;
-    
+
     const dateObj = new Date(dateTimeString);
-    
+
     if (isNaN(dateObj.getTime())) {
       return { result: "", error: "Invalid date or time" };
     }
 
     if (dateObj.getFullYear() < 1970) {
-      return { result: "", error: "Date must be after January 1, 1970 (Unix epoch)" };
+      return {
+        result: "",
+        error: "Date must be after January 1, 1970 (Unix epoch)",
+      };
     }
 
     const timestamp = Math.floor(dateObj.getTime() / 1000);
-    
+
     let errorMessage = "";
     if (dateObj.getFullYear() > 2038) {
       errorMessage = "Warning: Date exceeds 32-bit Unix timestamp limit (2038)";
@@ -62,35 +65,33 @@ export default function DateTimeToTimestamp() {
           className="w-32"
         />
       </div>
-      
+
       <div className="flex gap-2">
-        <Button 
-          variant="outline"
-          className="flex-1"
-          disabled={!date}
-        >
+        <Button variant="outline" className="flex-1" disabled={!date}>
           Convert
         </Button>
         <Button onClick={handleCurrentDateTime} variant="outline">
           Current
         </Button>
       </div>
-      
+
       {error && (
-        <div className={`text-sm p-3 rounded-md border ${
-          error.includes("Warning") 
-            ? "text-yellow-700 bg-yellow-50 border-yellow-200"
-            : "text-red-600 bg-red-50 border-red-200"
-        }`}>
+        <div
+          className={`rounded-md border p-3 text-sm ${
+            error.includes("Warning")
+              ? "border-yellow-200 bg-yellow-50 text-yellow-700"
+              : "border-red-200 bg-red-50 text-red-600"
+          }`}
+        >
           {error}
         </div>
       )}
-      
+
       {result && !error && (
-        <div className="text-sm text-green-700 bg-green-50 p-3 rounded-md border border-green-200">
-          <div className="font-semibold mb-1">Unix Timestamp:</div>
+        <div className="rounded-md border border-green-200 bg-green-50 p-3 text-sm text-green-700">
+          <div className="mb-1 font-semibold">Unix Timestamp:</div>
           <div className="font-mono text-lg">{result}</div>
-          <div className="text-xs mt-2 text-green-600">
+          <div className="mt-2 text-xs text-green-600">
             = {result} seconds since January 1, 1970 00:00:00 UTC
           </div>
         </div>

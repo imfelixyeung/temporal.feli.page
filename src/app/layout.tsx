@@ -42,7 +42,7 @@ export default function RootLayout({
         >
           <div
             id="app"
-            className="min-h-svh grid grid-cols-1 grid-rows-[auto_1fr_auto]"
+            className="grid min-h-svh grid-cols-1 grid-rows-[auto_1fr_auto]"
           >
             <Header />
             <Main>{children}</Main>

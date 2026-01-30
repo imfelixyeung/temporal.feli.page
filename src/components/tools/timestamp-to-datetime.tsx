@@ -19,7 +19,7 @@ export default function TimestampToDateTime() {
     }
 
     const timestampNum = parseInt(timestamp.trim());
-    
+
     if (isNaN(timestampNum)) {
       return { result: "", error: "Please enter a valid Unix timestamp" };
     }
@@ -28,8 +28,12 @@ export default function TimestampToDateTime() {
       return { result: "", error: "Timestamp must be a positive number" };
     }
 
-    if (timestampNum > 253402300799) { // Year 9999
-      return { result: "", error: "Timestamp is too large (exceeds year 9999)" };
+    if (timestampNum > 253402300799) {
+      // Year 9999
+      return {
+        result: "",
+        error: "Timestamp is too large (exceeds year 9999)",
+      };
     }
 
     const date = new Date(timestampNum * 1000);
@@ -37,9 +41,9 @@ export default function TimestampToDateTime() {
       return { result: "", error: "Invalid timestamp" };
     }
 
-    return { 
-      result: format(date, "yyyy-MM-dd HH:mm:ss (EEEE)"), 
-      error: "" 
+    return {
+      result: format(date, "yyyy-MM-dd HH:mm:ss (EEEE)"),
+      error: "",
     };
   }, [timestamp]);
 
@@ -57,16 +61,16 @@ export default function TimestampToDateTime() {
           Current
         </Button>
       </div>
-      
+
       {error && (
-        <div className="text-sm text-red-600 bg-red-50 p-3 rounded-md border border-red-200">
+        <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-600">
           {error}
         </div>
       )}
-      
+
       {result && !error && (
-        <div className="text-sm text-green-700 bg-green-50 p-3 rounded-md border border-green-200">
-          <div className="font-semibold mb-1">Converted Date/Time:</div>
+        <div className="rounded-md border border-green-200 bg-green-50 p-3 text-sm text-green-700">
+          <div className="mb-1 font-semibold">Converted Date/Time:</div>
           <div className="font-mono">{result}</div>
         </div>
       )}

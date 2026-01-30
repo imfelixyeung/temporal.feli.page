@@ -22,7 +22,7 @@ export default function Clock() {
   );
 
   return (
-    <div className="p-6 rounded-lg shadow-md border">
+    <div className="rounded-lg border p-6 shadow-md">
       <h2 className="mb-3 tabular-nums">
         <span className="text-2xl font-semibold" suppressHydrationWarning>
           {seconds}
