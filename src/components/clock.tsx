@@ -24,11 +24,15 @@ export default function Clock() {
   return (
     <div className="p-6 rounded-lg shadow-md border">
       <h2 className="mb-3 tabular-nums">
-        <span className="text-2xl font-semibold">{seconds}</span>
+        <span className="text-2xl font-semibold" suppressHydrationWarning>
+          {seconds}
+        </span>
         <br />
         <span className="text-md font-medium">Seconds since {startString}</span>
       </h2>
-      <p className="text-lg font-medium">{time}</p>
+      <p className="text-lg font-medium" suppressHydrationWarning>
+        {time}
+      </p>
     </div>
   );
 }

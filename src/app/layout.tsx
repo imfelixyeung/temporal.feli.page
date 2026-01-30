@@ -3,8 +3,8 @@ import Header from "@/components/layout/header";
 import Main from "@/components/layout/main";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,7 +28,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn(geistSans.variable, geistMono.variable)}>
+    <html
+      lang="en"
+      className={cn(geistSans.variable, geistMono.variable)}
+      suppressHydrationWarning
+    >
       <body>
         <ThemeProvider
           attribute="class"
