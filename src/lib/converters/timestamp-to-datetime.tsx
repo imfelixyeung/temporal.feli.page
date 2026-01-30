@@ -1,6 +1,10 @@
+import { TimestampUnit } from "@/schema/timestamp-units";
 import { format } from "date-fns";
 
-export const convertTimestampToDatetime = (timestamp: string) => {
+export const convertTimestampToDatetime = (
+  timestamp: string,
+  unit: Exclude<TimestampUnit, "auto">
+) => {
   if (!timestamp.trim()) {
     return { result: "", error: "" };
   }
@@ -15,7 +19,10 @@ export const convertTimestampToDatetime = (timestamp: string) => {
     return { result: "", error: "Timestamp must be a positive number" };
   }
 
-  if (timestampNum > 253402300799) {
+  const timestampMs =
+    unit === "milliseconds" ? timestampNum : timestampNum * 1000;
+
+  if (timestampNum / 1000 > 253402300799) {
     // Year 9999
     return {
       result: "",
@@ -23,7 +30,7 @@ export const convertTimestampToDatetime = (timestamp: string) => {
     };
   }
 
-  const date = new Date(timestampNum * 1000);
+  const date = new Date(timestampMs);
   if (isNaN(date.getTime())) {
     return { result: "", error: "Invalid timestamp" };
   }

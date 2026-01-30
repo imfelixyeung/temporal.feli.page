@@ -2,22 +2,41 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useMemo, useState } from "react";
-import { ButtonGroup } from "../ui/button-group";
 import { convertTimestampToDatetime } from "@/lib/converters/timestamp-to-datetime";
+import { detectTimestampUnit } from "@/lib/detect-timestamp-unit";
+import { TimestampUnit, timestampUnitLabels } from "@/schema/timestamp-units";
+import { useCallback, useMemo, useState } from "react";
+import { SelectTimestampUnit } from "../select-timestamp-unit";
+import { ButtonGroup } from "../ui/button-group";
 
 export default function TimestampToDateTime() {
   const [timestamp, setTimestamp] = useState<string>("");
+  const [userUnit, setUserUnit] = useState<TimestampUnit>("auto");
 
-  const handleCurrentTimestamp = () => {
-    const currentTimestamp = Math.floor(Date.now() / 1000).toString();
-    setTimestamp(currentTimestamp);
-  };
+  const handleCurrentTimestamp = useCallback(() => {
+    const currentTimestamp =
+      userUnit === "seconds" ? Math.floor(Date.now() / 1000) : Date.now();
+    setTimestamp(currentTimestamp.toString());
+  }, [userUnit]);
 
-  const { result, error } = useMemo(
-    () => convertTimestampToDatetime(timestamp),
-    [timestamp]
-  );
+  const {
+    converted: { result, error },
+    unit,
+  } = useMemo(() => {
+    const unit =
+      userUnit === "auto" ? detectTimestampUnit(timestamp) : userUnit;
+    const converted = convertTimestampToDatetime(timestamp, unit!);
+    return { unit, converted };
+  }, [timestamp, userUnit]);
+
+  const displayedUnitLabels = useMemo(() => {
+    if (!unit) return timestampUnitLabels;
+
+    return {
+      ...timestampUnitLabels,
+      auto: `${timestampUnitLabels.auto} (${timestampUnitLabels[unit]})`,
+    };
+  }, [unit]);
 
   return (
     <div className="space-y-4">
@@ -28,6 +47,11 @@ export default function TimestampToDateTime() {
           value={timestamp}
           onChange={(e) => setTimestamp(e.target.value)}
           className="grow"
+        />
+        <SelectTimestampUnit
+          items={displayedUnitLabels}
+          value={userUnit}
+          onValueChange={(v) => setUserUnit(v as TimestampUnit)}
         />
         <Button onClick={handleCurrentTimestamp} variant="outline">
           Current
