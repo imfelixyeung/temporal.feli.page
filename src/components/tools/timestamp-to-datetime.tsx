@@ -63,13 +63,13 @@ export default function TimestampToDateTime() {
       </div>
 
       {error && (
-        <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-600">
+        <div className="rounded-md border border-red-600/20 bg-red-600/20 p-3 text-sm">
           {error}
         </div>
       )}
 
       {result && !error && (
-        <div className="rounded-md border border-green-200 bg-green-50 p-3 text-sm text-green-700">
+        <div className="rounded-md border border-green-600/20 bg-green-600/10 p-3 text-sm">
           <div className="mb-1 font-semibold">Converted Date/Time:</div>
           <div className="font-mono">{result}</div>
         </div>

@@ -79,8 +79,8 @@ export default function DateTimeToTimestamp() {
         <div
           className={`rounded-md border p-3 text-sm ${
             error.includes("Warning")
-              ? "border-yellow-200 bg-yellow-50 text-yellow-700"
-              : "border-red-200 bg-red-50 text-red-600"
+              ? "border-yellow-600/20 bg-yellow-600/10"
+              : "border-red-600/20 bg-red-600/10"
           }`}
         >
           {error}
@@ -88,10 +88,10 @@ export default function DateTimeToTimestamp() {
       )}
 
       {result && !error && (
-        <div className="rounded-md border border-green-200 bg-green-50 p-3 text-sm text-green-700">
+        <div className="rounded-md border border-green-600/20 bg-green-600/10 p-3 text-sm">
           <div className="mb-1 font-semibold">Unix Timestamp:</div>
           <div className="font-mono text-lg">{result}</div>
-          <div className="mt-2 text-xs text-green-600">
+          <div className="text-muted-foreground mt-2 text-xs">
             = {result} seconds since January 1, 1970 00:00:00 UTC
           </div>
         </div>
