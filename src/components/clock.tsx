@@ -21,13 +21,13 @@ export default function Clock() {
   );
 
   return (
-    <div className="p-6 rounded-lg shadow-md bg-linear-to-r from-indigo-50 to-purple-50 border border-gray-200">
-      <h2 className="text-2xl font-semibold text-indigo-700 mb-3 tabular-nums">
-        {seconds}
+    <div className="p-6 rounded-lg shadow-md border">
+      <h2 className="mb-3 tabular-nums">
+        <span className="text-2xl font-semibold">{seconds}</span>
         <br />
-        Seconds since {startString}
+        <span className="text-md font-medium">Seconds since {startString}</span>
       </h2>
-      <p className="text-lg font-medium text-purple-800">{time}</p>
+      <p className="text-lg font-medium">{time}</p>
     </div>
   );
 }

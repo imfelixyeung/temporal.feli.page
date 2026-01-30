@@ -4,7 +4,7 @@ import TimestampToDateTime from "@/components/tools/timestamp-to-datetime";
 
 export default function Home() {
   return (
-    <div className="max-w-3xl mx-auto p-8 bg-white rounded-lg shadow-md space-y-8">
+    <div className="max-w-3xl mx-auto p-8 rounded-lg shadow-md space-y-8">
       <h1 className="text-3xl font-bold mb-4">Temporal Timestamp Tools</h1>
       <Clock />
 
