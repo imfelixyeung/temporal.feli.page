@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Temporal Timestamp Tools
+
+A modern web application for Unix timestamp conversions built with Next.js 13 and React 19.
+
+## Features
+
+- **Real-time Clock**: Displays current Unix timestamp and seconds since epoch (January 1, 1970)
+- **Timestamp to DateTime**: Convert Unix timestamps to human-readable date and time
+- **DateTime to Timestamp**: Convert date and time to Unix timestamp format
+- **Modern UI**: Clean, responsive interface using Tailwind CSS and shadcn/ui components
+
+## Tech Stack
+
+- **Framework**: Next.js 16 with App Router
+- **Frontend**: React 19 with TypeScript
+- **Styling**: Tailwind CSS v4 with gradient backgrounds
+- **Components**: shadcn/ui component library
+- **Utilities**: react-use for hooks and helpers
+- **Package Manager**: pnpm
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout with global styles
+│   └── page.tsx            # Main page with timestamp tools
+├── components/
+│   ├── clock.tsx           # Real-time clock component
+│   ├── layout/             # Layout components (header, footer, main)
+│   ├── tools/              # Timestamp conversion tools
+│   └── ui/                 # shadcn/ui component wrappers
+└── lib/
+    └── utils.ts            # Utility functions
+```
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `pnpm dev` - Start development server with hot reload
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint for code quality
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+This project is optimized for deployment on Vercel. The easiest way to deploy is:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+vercel --prod
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+For other deployment options, see the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying).
 
-## Deploy on Vercel
+## Development Notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Uses App Router for improved performance and routing
+- TypeScript for type safety throughout the application
+- Tailwind CSS for utility-first styling with custom gradients
+- shadcn/ui provides accessible, customizable components
+- Real-time updates using React hooks and intervals
