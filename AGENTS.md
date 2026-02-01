@@ -11,7 +11,10 @@ This file guides AI coding agents when working with this repository.
 - **Serve built app**: `pnpm start`.
 - **Lint**: `pnpm lint`.
 - **Format code**: `pnpm format:fix` (to fix) or `pnpm format:check` (to check).
-- **Run a single test file**: `pnpm test -- <path>` (e.g., `pnpm test -- tests/example.test.ts`).
+- **Run tests**: `pnpm test` (run all tests once).
+- **Watch tests**: `pnpm test:watch` (run tests in watch mode).
+- **Test UI**: `pnpm test:ui` (open Vitest UI for interactive testing).
+- **Run a single test file**: `pnpm test -- <path>` (e.g., `pnpm test -- src/lib/converters/__tests__/date-difference.test.ts`).
 
 ---
 
@@ -123,7 +126,7 @@ feat: add timestamp conversion tools with validation
 ## Helpful Tips for Future Agents
 
 - Use `pnpm dev` for hot-reloading during development.
-- Run tests with Jest (configured via `jest.config.js`; see test scripts).
+- Run tests with Vitest (configured via `vitest.config.ts`; see test scripts).
 - Ensure all code follows the above style guidelines.
 - Refer to the README for deployment instructions on Vercel.
 - Always use conventional commits when committing changes.
