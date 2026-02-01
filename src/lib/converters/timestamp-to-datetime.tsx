@@ -40,11 +40,15 @@ export const convertTimestampToDatetime = (
   const results: string[] = [];
 
   // Format in user's timezone if provided
-  if (timezone) {
-    const userDate = toZonedTime(date, timezone);
-    results.push(
-      `${timezone}: ${format(userDate, "yyyy-MM-dd HH:mm:ss (EEEE)")}`
-    );
+  if (timezone && timezone !== "UTC") {
+    try {
+      const userDate = toZonedTime(date, timezone);
+      results.push(
+        `${timezone}: ${format(userDate, "yyyy-MM-dd HH:mm:ss (EEEE)")}`
+      );
+    } catch {
+      return { result: "", error: "Invalid timezone" };
+    }
   }
 
   // Always include UTC
