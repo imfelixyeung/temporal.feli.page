@@ -14,10 +14,10 @@ describe("isValidTimeZone", () => {
       expect(isValidTimeZone("Australia/Sydney")).toBe(true);
     });
 
-    it("should accept timezone abbreviations", () => {
-      expect(isValidTimeZone("EST")).toBe(true);
-      expect(isValidTimeZone("PST")).toBe(true);
-      expect(isValidTimeZone("CET")).toBe(true);
+    it("should accept canonical IANA timezone names", () => {
+      expect(isValidTimeZone("America/New_York")).toBe(true);
+      expect(isValidTimeZone("America/Los_Angeles")).toBe(true);
+      expect(isValidTimeZone("Europe/Paris")).toBe(true);
     });
 
     it("should reject timezone offsets", () => {
