@@ -5,6 +5,7 @@ import {
   differenceInMinutes,
   differenceInSeconds,
 } from "date-fns";
+import { isValidTimeZone } from "../is-timezone-valid";
 
 /** Average number of days per month (365.25 / 12) */
 export const AVERAGE_DAYS_PER_MONTH = 30.44;
@@ -79,20 +80,21 @@ export const calculateDateDifference = (
     };
   }
 
+  if (timezone && !isValidTimeZone(timezone)) {
+    return {
+      result: emptyResult,
+      error: "Invalid timezone",
+    };
+  }
+  const tzObj = timezone ? tz(timezone) : undefined;
+
   // Convert to timezone-aware dates using fromZonedTime to interpret input as midnight in target timezone
   let zonedStartDate: Date;
   let zonedEndDate: Date;
 
   if (timezone) {
-    try {
-      zonedStartDate = new TZDate(startDate, timezone);
-      zonedEndDate = new TZDate(endDate, timezone);
-    } catch {
-      return {
-        result: emptyResult,
-        error: "Invalid timezone",
-      };
-    }
+    zonedStartDate = new TZDate(startDate, timezone);
+    zonedEndDate = new TZDate(endDate, timezone);
   } else {
     // When no timezone specified, use local timezone
     zonedStartDate = new TZDate(startDate);
@@ -114,8 +116,6 @@ export const calculateDateDifference = (
       error: "End date must be after or equal to start date",
     };
   }
-
-  const tzObj = timezone ? tz(timezone) : undefined;
 
   // Calculate differences using date-fns functions
   const days = differenceInDays(zonedEndDate, zonedStartDate, {
