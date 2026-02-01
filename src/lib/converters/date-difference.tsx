@@ -1,10 +1,10 @@
+import { tz, TZDate } from "@date-fns/tz";
 import {
   differenceInDays,
   differenceInHours,
   differenceInMinutes,
   differenceInSeconds,
 } from "date-fns";
-import { fromZonedTime } from "date-fns-tz";
 
 /** Average number of days per month (365.25 / 12) */
 export const AVERAGE_DAYS_PER_MONTH = 30.44;
@@ -85,8 +85,8 @@ export const calculateDateDifference = (
 
   if (timezone) {
     try {
-      zonedStartDate = fromZonedTime(startDate + "T00:00:00", timezone);
-      zonedEndDate = fromZonedTime(endDate + "T00:00:00", timezone);
+      zonedStartDate = new TZDate(startDate, timezone);
+      zonedEndDate = new TZDate(endDate, timezone);
     } catch {
       return {
         result: emptyResult,
@@ -95,8 +95,8 @@ export const calculateDateDifference = (
     }
   } else {
     // When no timezone specified, use local timezone
-    zonedStartDate = new Date(startDate + "T00:00:00");
-    zonedEndDate = new Date(endDate + "T00:00:00");
+    zonedStartDate = new TZDate(startDate);
+    zonedEndDate = new TZDate(endDate);
   }
 
   // Validate date parsing
@@ -115,13 +115,19 @@ export const calculateDateDifference = (
     };
   }
 
+  const tzObj = timezone ? tz(timezone) : undefined;
+
   // Calculate differences using date-fns functions
-  const days = differenceInDays(zonedEndDate, zonedStartDate);
+  const days = differenceInDays(zonedEndDate, zonedStartDate, {
+    in: tzObj,
+  });
   const weeks = Math.floor(days / 7);
   const months = Math.floor(days / AVERAGE_DAYS_PER_MONTH);
-  const hours = differenceInHours(zonedEndDate, zonedStartDate);
-  const minutes = differenceInMinutes(zonedEndDate, zonedStartDate);
-  const seconds = differenceInSeconds(zonedEndDate, zonedStartDate);
+  const hours = differenceInHours(zonedEndDate, zonedStartDate, {
+    in: tzObj,
+  });
+  const minutes = differenceInMinutes(zonedEndDate, zonedStartDate, {});
+  const seconds = differenceInSeconds(zonedEndDate, zonedStartDate, {});
 
   return {
     result: {

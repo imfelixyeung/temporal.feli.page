@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { calculateDateDifference } from "../date-difference";
 
 describe("calculateDateDifference", () => {
@@ -11,7 +11,7 @@ describe("calculateDateDifference", () => {
       );
 
       expect(error).toBe("");
-      expect(result.days).toBe(119);
+      expect(result.days).toBe(120);
       expect(result.weeks).toBe(17);
       expect(result.monthsApprox).toBe(3);
       expect(result.hours).toBe(2880);
