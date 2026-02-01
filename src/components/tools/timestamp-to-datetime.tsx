@@ -10,6 +10,13 @@ import { useCallback, useMemo, useState } from "react";
 import { SelectTimestampUnit } from "../select-timestamp-unit";
 import { ButtonGroup } from "../ui/button-group";
 
+/**
+ * Render a client-side UI for converting Unix timestamps into human-readable date/time with automatic or explicit unit selection and timezone support.
+ *
+ * Displays an input for a Unix timestamp, a unit selector (auto/seconds/milliseconds), a "Current" button that fills the input with the current time in the selected unit, and the conversion result or an error message.
+ *
+ * @returns A JSX element containing the timestamp input, unit selector, current-time button, and the converted date/time or an error display.
+ */
 export default function TimestampToDateTime() {
   const [timestamp, setTimestamp] = useState<string>("");
   const [userUnit, setUserUnit] = useState<TimestampUnit>("auto");
