@@ -4,7 +4,10 @@ import {
   differenceInMinutes,
   differenceInSeconds,
 } from "date-fns";
-import { toZonedTime } from "date-fns-tz";
+import { fromZonedTime } from "date-fns-tz";
+
+/** Average number of days per month (365.25 / 12) */
+export const AVERAGE_DAYS_PER_MONTH = 30.44;
 
 /**
  * Interface for date difference calculation results.
@@ -76,34 +79,14 @@ export const calculateDateDifference = (
     };
   }
 
-  // Parse dates
-  const startDateObj = new Date(startDate + "T00:00:00");
-  const endDateObj = new Date(endDate + "T00:00:00");
-
-  // Validate date parsing
-  if (isNaN(startDateObj.getTime()) || isNaN(endDateObj.getTime())) {
-    return {
-      result: emptyResult,
-      error: "Invalid date format. Please use YYYY-MM-DD format.",
-    };
-  }
-
-  // Check if end date is before start date
-  if (endDateObj < startDateObj) {
-    return {
-      result: emptyResult,
-      error: "End date must be after or equal to start date",
-    };
-  }
-
-  // Convert to timezone-aware dates
+  // Convert to timezone-aware dates using fromZonedTime to interpret input as midnight in target timezone
   let zonedStartDate: Date;
   let zonedEndDate: Date;
 
   if (timezone) {
     try {
-      zonedStartDate = toZonedTime(startDateObj, timezone);
-      zonedEndDate = toZonedTime(endDateObj, timezone);
+      zonedStartDate = fromZonedTime(startDate + "T00:00:00", timezone);
+      zonedEndDate = fromZonedTime(endDate + "T00:00:00", timezone);
     } catch {
       return {
         result: emptyResult,
@@ -111,14 +94,31 @@ export const calculateDateDifference = (
       };
     }
   } else {
-    zonedStartDate = startDateObj;
-    zonedEndDate = endDateObj;
+    // When no timezone specified, use local timezone
+    zonedStartDate = new Date(startDate + "T00:00:00");
+    zonedEndDate = new Date(endDate + "T00:00:00");
+  }
+
+  // Validate date parsing
+  if (isNaN(zonedStartDate.getTime()) || isNaN(zonedEndDate.getTime())) {
+    return {
+      result: emptyResult,
+      error: "Invalid date format. Please use YYYY-MM-DD format.",
+    };
+  }
+
+  // Check if end date is before start date
+  if (zonedEndDate < zonedStartDate) {
+    return {
+      result: emptyResult,
+      error: "End date must be after or equal to start date",
+    };
   }
 
   // Calculate differences using date-fns functions
   const days = differenceInDays(zonedEndDate, zonedStartDate);
   const weeks = Math.floor(days / 7);
-  const months = Math.floor(days / 30.44); // Average month length (365.25 / 12)
+  const months = Math.floor(days / AVERAGE_DAYS_PER_MONTH);
   const hours = differenceInHours(zonedEndDate, zonedStartDate);
   const minutes = differenceInMinutes(zonedEndDate, zonedStartDate);
   const seconds = differenceInSeconds(zonedEndDate, zonedStartDate);

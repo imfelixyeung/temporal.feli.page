@@ -1,10 +1,14 @@
 "use client";
 
+import { useCallback, useMemo, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { calculateDateDifference } from "@/lib/converters/date-difference";
+import {
+  calculateDateDifference,
+  AVERAGE_DAYS_PER_MONTH,
+} from "@/lib/converters/date-difference";
 import { useTimezoneStore } from "@/store/timezone";
-import { useCallback, useMemo, useState } from "react";
 import { ButtonGroup, ButtonGroupText } from "../ui/button-group";
 
 export default function DateDifference() {
@@ -12,17 +16,13 @@ export default function DateDifference() {
   const [endDate, setEndDate] = useState<string>("");
   const { timezone } = useTimezoneStore();
 
-  const handleCurrentStartDate = useCallback(() => {
-    const now = new Date();
-    const dateStr = now.toISOString().split("T")[0];
-    setStartDate(dateStr);
-  }, []);
-
-  const handleCurrentEndDate = useCallback(() => {
-    const now = new Date();
-    const dateStr = now.toISOString().split("T")[0];
-    setEndDate(dateStr);
-  }, []);
+  const setCurrentDate = useCallback(
+    (setter: React.Dispatch<React.SetStateAction<string>>) => {
+      const dateStr = new Date().toISOString().split("T")[0];
+      setter(dateStr);
+    },
+    []
+  );
 
   const { result, error } = useMemo(
     () => calculateDateDifference(startDate, endDate, timezone),
@@ -40,7 +40,10 @@ export default function DateDifference() {
             onChange={(e) => setStartDate(e.target.value)}
             className="grow"
           />
-          <Button onClick={handleCurrentStartDate} variant="outline">
+          <Button
+            onClick={() => setCurrentDate(setStartDate)}
+            variant="outline"
+          >
             Current
           </Button>
         </ButtonGroup>
@@ -53,7 +56,7 @@ export default function DateDifference() {
             onChange={(e) => setEndDate(e.target.value)}
             className="grow"
           />
-          <Button onClick={handleCurrentEndDate} variant="outline">
+          <Button onClick={() => setCurrentDate(setEndDate)} variant="outline">
             Current
           </Button>
         </ButtonGroup>
@@ -89,7 +92,7 @@ export default function DateDifference() {
               {result.monthsApprox > 0 && (
                 <span className="text-muted-foreground">
                   {" "}
-                  ({Math.round(result.days % 30.44)} days)
+                  ({Math.round(result.days % AVERAGE_DAYS_PER_MONTH)} days)
                 </span>
               )}
             </div>

@@ -148,6 +148,18 @@ describe("calculateDateDifference", () => {
       expect(error).toBe("");
       expect(result.days).toBe(1);
     });
+
+    it("should handle invalid timezone gracefully", () => {
+      const { result, error } = calculateDateDifference(
+        "2025-01-01",
+        "2025-01-02",
+        "Invalid/Timezone"
+      );
+
+      // Invalid timezone should result in invalid dates
+      expect(error).toBe("Invalid date format. Please use YYYY-MM-DD format.");
+      expect(result.days).toBe(0);
+    });
   });
 
   describe("Whole number calculations", () => {
