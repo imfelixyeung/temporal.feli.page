@@ -11,6 +11,36 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+const themeOptions = [
+  {
+    value: "light",
+    label: (
+      <>
+        <SunIcon className="mr-2 size-4" />
+        Light
+      </>
+    ),
+  },
+  {
+    value: "dark",
+    label: (
+      <>
+        <MoonIcon className="mr-2 size-4" />
+        Dark
+      </>
+    ),
+  },
+  {
+    value: "system",
+    label: (
+      <>
+        <MonitorIcon className="mr-2 size-4" />
+        System
+      </>
+    ),
+  },
+];
+
 export default function ThemeSelector() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -31,6 +61,8 @@ export default function ThemeSelector() {
     );
   }
 
+  const selectedOption = themeOptions.find((option) => option.value === theme);
+
   return (
     <div className="mt-2 flex items-center gap-2">
       <label htmlFor="theme-select" className="sr-only">
@@ -38,21 +70,16 @@ export default function ThemeSelector() {
       </label>
       <Select value={theme} onValueChange={(value) => value && setTheme(value)}>
         <SelectTrigger id="theme-select" className="w-32">
-          <SelectValue placeholder="Select theme" />
+          <SelectValue placeholder="Select theme">
+            {selectedOption?.label}
+          </SelectValue>
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="light">
-            <SunIcon className="mr-2 size-4" />
-            Light
-          </SelectItem>
-          <SelectItem value="dark">
-            <MoonIcon className="mr-2 size-4" />
-            Dark
-          </SelectItem>
-          <SelectItem value="system">
-            <MonitorIcon className="mr-2 size-4" />
-            System
-          </SelectItem>
+          {themeOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>
