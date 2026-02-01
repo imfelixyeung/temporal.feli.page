@@ -140,7 +140,7 @@ When working on a GitHub issue, follow these steps to ensure a smooth and effici
      ```
 
 3. **Plan the Implementation**
-   - Make a detailed plan on how to implement or fix the issue using a structured todo list. Break down the work into actionable steps.
+   - Make a detailed plan on how to implement or fix the issue using a structured to-do list. Break down the work into actionable steps.
 
 4. **Start Development Work**
    - Write the code for the feature or fix.
@@ -150,11 +150,11 @@ When working on a GitHub issue, follow these steps to ensure a smooth and effici
    - Run the following checks to ensure all code quality standards are met:
      - **ESLint**: Check for linting errors.
        ```bash
-       pnpm run lint
+       pnpm lint
        ```
      - **Prettier**: Verify code formatting.
        ```bash
-       pnpm run format:check
+       pnpm format:check
        ```
      - **TypeScript**: Perform type checking.
        ```bash
@@ -162,21 +162,28 @@ When working on a GitHub issue, follow these steps to ensure a smooth and effici
        ```
      - **Unit Tests**: Run all unit tests.
        ```bash
-       pnpm run test
+       pnpm test
        ```
      - **Next.js Build**: Ensure the project builds successfully.
        ```bash
-       pnpm run build
+       pnpm build
        ```
 
-6. **Push Changes and Create a Pull Request**
-   - Push the changes to the remote branch.
-   - Use the GitHub CLI to create a pull request:
+6. **Commit Your Changes**
+   - Stage and commit your changes following the Conventional Commits format (see the Git Commit Convention section):
+     ```bash
+     git add .
+     git commit -m "feat: <description>"
+     ```
+   - Replace `feat:` with the appropriate prefix (`fix:`, `docs:`, etc.) based on the nature of your changes.
+
+7. **Push Changes and Create a Pull Request**
+   - Use the GitHub CLI to create a pull request (this will push your changes automatically):
      ```bash
      gh pr create
      ```
 
-7. **View Pull Request and Comments**
+8. **View Pull Request and Comments**
    - View the pull request details:
      ```bash
      gh pr view <number>
