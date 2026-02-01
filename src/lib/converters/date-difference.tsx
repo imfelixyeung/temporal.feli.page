@@ -28,6 +28,18 @@ export interface DateDifferenceResult {
   remainingDaysAfterMonths: number;
 }
 
+/** Empty result constant */
+const emptyResult: DateDifferenceResult = {
+  days: 0,
+  weeks: 0,
+  monthsApprox: 0,
+  hours: 0,
+  minutes: 0,
+  seconds: 0,
+  remainingDaysAfterWeeks: 0,
+  remainingDaysAfterMonths: 0,
+};
+
 /**
  * Calculates the difference between two dates in various units with timezone support.
  *
@@ -65,16 +77,7 @@ export const calculateDateDifference = (
   // Handle empty inputs
   if (!startDate || !endDate) {
     return {
-      result: {
-        days: 0,
-        weeks: 0,
-        monthsApprox: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-        remainingDaysAfterWeeks: 0,
-        remainingDaysAfterMonths: 0,
-      },
+      result: emptyResult,
       error: "Both start and end dates are required",
     };
   }
@@ -86,16 +89,7 @@ export const calculateDateDifference = (
   // Validate date parsing
   if (isNaN(startDateObj.getTime()) || isNaN(endDateObj.getTime())) {
     return {
-      result: {
-        days: 0,
-        weeks: 0,
-        monthsApprox: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-        remainingDaysAfterWeeks: 0,
-        remainingDaysAfterMonths: 0,
-      },
+      result: emptyResult,
       error: "Invalid date format. Please use YYYY-MM-DD format.",
     };
   }
@@ -103,16 +97,7 @@ export const calculateDateDifference = (
   // Check if end date is before start date
   if (endDateObj < startDateObj) {
     return {
-      result: {
-        days: 0,
-        weeks: 0,
-        monthsApprox: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-        remainingDaysAfterWeeks: 0,
-        remainingDaysAfterMonths: 0,
-      },
+      result: emptyResult,
       error: "End date must be after or equal to start date",
     };
   }
