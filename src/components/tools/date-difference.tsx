@@ -41,6 +41,11 @@ export default function DateDifference() {
     [startDate, endDate, timezone]
   );
 
+  const remainderDays = result ? result.days % 7 : 0;
+  const remainderMonthDays = result
+    ? Math.round(result.days % AVERAGE_DAYS_PER_MONTH)
+    : 0;
+
   return (
     <div className="space-y-4">
       <div className="space-y-2">
@@ -86,8 +91,8 @@ export default function DateDifference() {
             <div className="font-semibold">Date Difference Results:</div>
             <CopyButton
               value={`Days: ${result.days.toLocaleString()}
-Weeks: ${result.weeks.toLocaleString()}${result.weeks > 0 ? ` (and ${result.days % 7} days)` : ""}
-Months (approx): ${result.monthsApprox.toLocaleString()}${result.monthsApprox > 0 ? ` (${Math.round(result.days % AVERAGE_DAYS_PER_MONTH)} days)` : ""}
+Weeks: ${result.weeks.toLocaleString()}${result.weeks > 0 ? ` (and ${remainderDays} days)` : ""}
+Months (approx): ${result.monthsApprox.toLocaleString()}${result.monthsApprox > 0 ? ` (${remainderMonthDays} days)` : ""}
 Hours: ${result.hours.toLocaleString()}
 Minutes: ${result.minutes.toLocaleString()}
 Seconds: ${result.seconds.toLocaleString()}`}
@@ -113,7 +118,7 @@ Seconds: ${result.seconds.toLocaleString()}`}
                 {result.weeks > 0 && (
                   <span className="text-muted-foreground">
                     {" "}
-                    (and {result.days % 7} days)
+                    (and {remainderDays} days)
                   </span>
                 )}
               </div>
@@ -130,7 +135,7 @@ Seconds: ${result.seconds.toLocaleString()}`}
                 {result.monthsApprox > 0 && (
                   <span className="text-muted-foreground">
                     {" "}
-                    ({Math.round(result.days % AVERAGE_DAYS_PER_MONTH)} days)
+                    ({remainderMonthDays} days)
                   </span>
                 )}
               </div>

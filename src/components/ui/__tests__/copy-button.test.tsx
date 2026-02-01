@@ -55,11 +55,19 @@ describe("CopyButton", () => {
       render(<CopyButton value="test value" />);
       const button = screen.getByRole("button");
 
+      // Initially should show copy icon
+      expect(screen.getByTestId("copy-icon")).toBeInTheDocument();
+      expect(screen.queryByTestId("check-icon")).not.toBeInTheDocument();
+
       await act(async () => {
         fireEvent.click(button);
       });
 
       expect(mockClipboard.writeText).toHaveBeenCalledWith("test value");
+
+      // Should show check icon after copy
+      expect(screen.getByTestId("check-icon")).toBeInTheDocument();
+      expect(screen.queryByTestId("copy-icon")).not.toBeInTheDocument();
     });
 
     it("should reset to copy icon after 2 seconds", async () => {
@@ -72,10 +80,18 @@ describe("CopyButton", () => {
 
       expect(mockClipboard.writeText).toHaveBeenCalledWith("test value");
 
-      // Fast-forward time
+      // Should show check icon immediately after copy
+      expect(screen.getByTestId("check-icon")).toBeInTheDocument();
+      expect(screen.queryByTestId("copy-icon")).not.toBeInTheDocument();
+
+      // Fast-forward time by 2 seconds
       act(() => {
         vi.advanceTimersByTime(2000);
       });
+
+      // Should reset to copy icon after 2 seconds
+      expect(screen.getByTestId("copy-icon")).toBeInTheDocument();
+      expect(screen.queryByTestId("check-icon")).not.toBeInTheDocument();
     });
   });
 

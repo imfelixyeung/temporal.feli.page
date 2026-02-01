@@ -29,12 +29,13 @@ export function CopyButton({
 }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(value);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      timeoutRef.current = setTimeout(() => setCopied(false), 2000);
     } catch {
       // Fallback for older browsers
       const textArea = document.createElement("textarea");
@@ -48,7 +49,7 @@ export function CopyButton({
       try {
         document.execCommand("copy");
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        timeoutRef.current = setTimeout(() => setCopied(false), 2000);
       } catch (fallbackErr) {
         console.error("Failed to copy text:", fallbackErr);
       } finally {
@@ -75,6 +76,14 @@ export function CopyButton({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [enableKeyboardShortcut, handleCopy]);
 
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div ref={containerRef} className={className}>
       <Button
@@ -85,9 +94,17 @@ export function CopyButton({
         title={`Copy ${label}`}
       >
         {copied ? (
-          <CheckIcon className="h-4 w-4" aria-hidden="true" />
+          <CheckIcon
+            className="h-4 w-4"
+            aria-hidden="true"
+            data-testid="check-icon"
+          />
         ) : (
-          <CopyIcon className="h-4 w-4" aria-hidden="true" />
+          <CopyIcon
+            className="h-4 w-4"
+            aria-hidden="true"
+            data-testid="copy-icon"
+          />
         )}
       </Button>
     </div>
