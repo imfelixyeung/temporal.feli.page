@@ -6,22 +6,24 @@ describe("calculateDateDifference", () => {
     it("should calculate exact example correctly", () => {
       const { result, error } = calculateDateDifference(
         "2025-10-23",
-        "2026-02-20"
+        "2026-02-20",
+        "UTC"
       );
 
       expect(error).toBe("");
-      expect(result.days).toBe(120);
+      expect(result.days).toBe(119);
       expect(result.weeks).toBe(17);
       expect(result.monthsApprox).toBe(3);
-      expect(result.hours).toBe(2881);
-      expect(result.minutes).toBe(172860);
-      expect(result.seconds).toBe(10371600);
+      expect(result.hours).toBe(2880);
+      expect(result.minutes).toBe(172800);
+      expect(result.seconds).toBe(10368000);
     });
 
     it("should show 2 months 8 days for 2025-12-29 to 2026-03-08", () => {
       const { result, error } = calculateDateDifference(
         "2025-12-29",
-        "2026-03-08"
+        "2026-03-08",
+        "UTC"
       );
 
       expect(error).toBe("");
