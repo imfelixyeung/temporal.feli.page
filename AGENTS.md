@@ -175,3 +175,13 @@ When working on a GitHub issue, follow these steps to ensure a smooth and effici
      ```bash
      gh pr create
      ```
+
+7. **View Pull Request and Comments**
+   - View the pull request details:
+     ```bash
+     gh pr view <number>
+     ```
+   - View the pull request with comments:
+     ```bash
+     gh pr view <number> --comments
+     ```
