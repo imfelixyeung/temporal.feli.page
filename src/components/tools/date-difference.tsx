@@ -76,10 +76,22 @@ export default function DateDifference() {
             <div>
               <span className="font-medium">Weeks:</span>{" "}
               {result.weeks.toLocaleString()}
+              {result.weeks > 0 && (
+                <span className="text-muted-foreground">
+                  {" "}
+                  (and {result.days % 7} days)
+                </span>
+              )}
             </div>
             <div>
               <span className="font-medium">Months (approx):</span>{" "}
               {result.monthsApprox.toLocaleString()}
+              {result.monthsApprox > 0 && (
+                <span className="text-muted-foreground">
+                  {" "}
+                  ({Math.round(result.days % 30.44)} days)
+                </span>
+              )}
             </div>
             <div>
               <span className="font-medium">Hours:</span>{" "}

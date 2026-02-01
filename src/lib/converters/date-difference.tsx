@@ -117,8 +117,10 @@ export const calculateDateDifference = (
 
   // Calculate differences using date-fns functions
   const days = differenceInDays(zonedEndDate, zonedStartDate);
-  const weeks = days / 7;
-  const monthsApprox = days / 30.44; // Average month length (365.25 / 12)
+  const weeks = Math.floor(days / 7);
+  const remainingDaysAfterWeeks = days % 7;
+  const months = Math.floor(days / 30.44); // Average month length (365.25 / 12)
+  const remainingDaysAfterMonths = Math.round(days % 30.44);
   const hours = differenceInHours(zonedEndDate, zonedStartDate);
   const minutes = differenceInMinutes(zonedEndDate, zonedStartDate);
   const seconds = differenceInSeconds(zonedEndDate, zonedStartDate);
@@ -126,8 +128,8 @@ export const calculateDateDifference = (
   return {
     result: {
       days,
-      weeks: Math.round(weeks * 100) / 100, // Round to 2 decimal places
-      monthsApprox: Math.round(monthsApprox * 100) / 100, // Round to 2 decimal places
+      weeks,
+      monthsApprox: months,
       hours,
       minutes,
       seconds,

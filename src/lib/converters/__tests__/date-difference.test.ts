@@ -11,11 +11,23 @@ describe("calculateDateDifference", () => {
 
       expect(error).toBe("");
       expect(result.days).toBe(120);
-      expect(result.weeks).toBe(17.14);
-      expect(result.monthsApprox).toBe(3.94);
+      expect(result.weeks).toBe(17);
+      expect(result.monthsApprox).toBe(3);
       expect(result.hours).toBe(2881);
       expect(result.minutes).toBe(172860);
       expect(result.seconds).toBe(10371600);
+    });
+
+    it("should show 2 months 8 days for 2025-12-29 to 2026-03-08", () => {
+      const { result, error } = calculateDateDifference(
+        "2025-12-29",
+        "2026-03-08"
+      );
+
+      expect(error).toBe("");
+      expect(result.days).toBe(69);
+      expect(result.weeks).toBe(9); // 9 weeks (63 days) + 6 remaining days
+      expect(result.monthsApprox).toBe(2); // 2 months (60.88 days) + 8.12 remaining days = 69 days
     });
 
     it("should return 0 days for same date", () => {
@@ -41,7 +53,7 @@ describe("calculateDateDifference", () => {
 
       expect(error).toBe("");
       expect(result.days).toBe(1);
-      expect(result.weeks).toBe(0.14);
+      expect(result.weeks).toBe(0);
       expect(result.hours).toBe(24);
       expect(result.minutes).toBe(1440);
       expect(result.seconds).toBe(86400);
@@ -138,15 +150,15 @@ describe("calculateDateDifference", () => {
     });
   });
 
-  describe("Decimal precision", () => {
-    it("should round weeks to 2 decimal places", () => {
+  describe("Whole number calculations", () => {
+    it("should calculate whole weeks correctly", () => {
       const { result } = calculateDateDifference("2025-01-01", "2025-01-10"); // 9 days
-      expect(result.weeks).toBe(1.29); // 9/7 = 1.2857 rounded to 1.29
+      expect(result.weeks).toBe(1); // 9 days = 1 week
     });
 
-    it("should round months to 2 decimal places", () => {
+    it("should calculate whole months correctly", () => {
       const { result } = calculateDateDifference("2025-01-01", "2025-02-01"); // 31 days
-      expect(result.monthsApprox).toBe(1.02); // 31/30.44 = 1.0185 rounded to 1.02
+      expect(result.monthsApprox).toBe(1); // 31 days = 1 month
     });
   });
 
@@ -159,8 +171,20 @@ describe("calculateDateDifference", () => {
 
       expect(error).toBe("");
       expect(result.days).toBe(10958); // Including leap years
-      expect(result.weeks).toBe(1565.43);
-      expect(result.monthsApprox).toBe(359.99);
+      expect(result.weeks).toBe(1565);
+      expect(result.monthsApprox).toBe(359);
+    });
+
+    it("should show whole months and weeks with remaining days", () => {
+      const { result, error } = calculateDateDifference(
+        "2025-12-29",
+        "2026-03-08"
+      );
+
+      expect(error).toBe("");
+      expect(result.days).toBe(69);
+      expect(result.weeks).toBe(9); // 9 weeks (63 days) + 6 remaining days
+      expect(result.monthsApprox).toBe(2); // 2 months (60.88 days) + 8.12 remaining days = 69 days
     });
   });
 });
