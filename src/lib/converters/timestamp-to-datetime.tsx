@@ -1,9 +1,11 @@
 import { TimestampUnit } from "@/schema/timestamp-units";
 import { format } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
 
 export const convertTimestampToDatetime = (
   timestamp: string,
-  unit: Exclude<TimestampUnit, "auto">
+  unit: Exclude<TimestampUnit, "auto">,
+  timezone?: string
 ) => {
   if (!timestamp.trim()) {
     return { result: "", error: "" };
@@ -35,8 +37,22 @@ export const convertTimestampToDatetime = (
     return { result: "", error: "Invalid timestamp" };
   }
 
+  const results: string[] = [];
+
+  // Format in user's timezone if provided
+  if (timezone) {
+    const userDate = toZonedTime(date, timezone);
+    results.push(
+      `${timezone}: ${format(userDate, "yyyy-MM-dd HH:mm:ss (EEEE)")}`
+    );
+  }
+
+  // Always include UTC
+  const utcDate = toZonedTime(date, "UTC");
+  results.push(`UTC: ${format(utcDate, "yyyy-MM-dd HH:mm:ss (EEEE)")}`);
+
   return {
-    result: format(date, "yyyy-MM-dd HH:mm:ss (EEEE)"),
+    result: results.join("\n"),
     error: "",
   };
 };
