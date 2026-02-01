@@ -16,7 +16,8 @@ const SelectTimezone = () => {
       return Intl.supportedValuesOf("timeZone");
     }
     // Provide a fallback for unsupported browsers
-    const defaultTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const defaultTimezone =
+      Intl.DateTimeFormat().resolvedOptions().timeZone ?? "UTC";
     return [defaultTimezone];
   });
   const { timezone, setTimezone } = useTimezoneStore();
