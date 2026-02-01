@@ -20,7 +20,7 @@ describe("isValidTimeZone", () => {
       expect(isValidTimeZone("CET")).toBe(true);
     });
 
-    it("should accept timezone offsets", () => {
+    it("should reject timezone offsets", () => {
       expect(isValidTimeZone("GMT+5")).toBe(false);
       expect(isValidTimeZone("GMT-8")).toBe(false);
       expect(isValidTimeZone("UTC-5")).toBe(false);
