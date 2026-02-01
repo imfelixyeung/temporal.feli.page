@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
 import { Input } from "@/components/ui/input";
 import { convertDateTimeToTimestamp } from "@/lib/converters/datetime-to-timestamp";
 import { useMemo, useState } from "react";
@@ -59,7 +60,10 @@ export default function DateTimeToTimestamp() {
 
       {result && !error && (
         <div className="rounded-md border border-green-600/20 bg-green-600/10 p-3 text-sm">
-          <div className="mb-1 font-semibold">Unix Timestamp:</div>
+          <div className="mb-1 flex items-center justify-between">
+            <div className="font-semibold">Unix Timestamp:</div>
+            <CopyButton value={result} label="Unix timestamp" />
+          </div>
           <div className="font-mono text-lg">{result}</div>
           <div className="text-muted-foreground mt-2 text-xs">
             = {result} seconds since January 1, 1970 00:00:00 UTC

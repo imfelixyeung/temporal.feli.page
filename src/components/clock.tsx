@@ -1,5 +1,6 @@
 "use client";
 
+import { CopyButton } from "@/components/ui/copy-button";
 import { useClockStore } from "@/store/clock";
 import { useMemo } from "react";
 import { useInterval } from "react-use";
@@ -23,16 +24,24 @@ export default function Clock() {
 
   return (
     <div className="rounded-lg border p-6 shadow-md">
-      <h2 className="mb-3 tabular-nums">
-        <span className="text-2xl font-semibold" suppressHydrationWarning>
-          {seconds}
-        </span>
-        <br />
-        <span className="text-md font-medium">Seconds since {startString}</span>
-      </h2>
-      <p className="text-lg font-medium" suppressHydrationWarning>
-        {time}
-      </p>
+      <div className="mb-3 flex items-start justify-between">
+        <h2 className="tabular-nums">
+          <span className="text-2xl font-semibold" suppressHydrationWarning>
+            {seconds}
+          </span>
+          <br />
+          <span className="text-md font-medium">
+            Seconds since {startString}
+          </span>
+        </h2>
+        <CopyButton value={seconds.toString()} label="current timestamp" />
+      </div>
+      <div className="flex items-center justify-between">
+        <p className="text-lg font-medium" suppressHydrationWarning>
+          {time}
+        </p>
+        <CopyButton value={time} label="current time" />
+      </div>
     </div>
   );
 }

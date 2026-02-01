@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
 import { Input } from "@/components/ui/input";
 import {
   calculateDateDifference,
@@ -81,43 +82,96 @@ export default function DateDifference() {
 
       {result && !error && startDate && endDate && (
         <div className="rounded-md border border-green-600/20 bg-green-600/10 p-3 text-sm">
-          <div className="mb-3 font-semibold">Date Difference Results:</div>
+          <div className="mb-3 flex items-center justify-between">
+            <div className="font-semibold">Date Difference Results:</div>
+            <CopyButton
+              value={`Days: ${result.days.toLocaleString()}
+Weeks: ${result.weeks.toLocaleString()}${result.weeks > 0 ? ` (and ${result.days % 7} days)` : ""}
+Months (approx): ${result.monthsApprox.toLocaleString()}${result.monthsApprox > 0 ? ` (${Math.round(result.days % AVERAGE_DAYS_PER_MONTH)} days)` : ""}
+Hours: ${result.hours.toLocaleString()}
+Minutes: ${result.minutes.toLocaleString()}
+Seconds: ${result.seconds.toLocaleString()}`}
+              label="date difference results"
+            />
+          </div>
           <div className="grid grid-cols-2 gap-2">
-            <div>
-              <span className="font-medium">Days:</span>{" "}
-              {result.days.toLocaleString()}
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="font-medium">Days:</span>{" "}
+                {result.days.toLocaleString()}
+              </div>
+              <CopyButton
+                value={result.days.toString()}
+                label="days"
+                size="icon-sm"
+              />
             </div>
-            <div>
-              <span className="font-medium">Weeks:</span>{" "}
-              {result.weeks.toLocaleString()}
-              {result.weeks > 0 && (
-                <span className="text-muted-foreground">
-                  {" "}
-                  (and {result.days % 7} days)
-                </span>
-              )}
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="font-medium">Weeks:</span>{" "}
+                {result.weeks.toLocaleString()}
+                {result.weeks > 0 && (
+                  <span className="text-muted-foreground">
+                    {" "}
+                    (and {result.days % 7} days)
+                  </span>
+                )}
+              </div>
+              <CopyButton
+                value={result.weeks.toString()}
+                label="weeks"
+                size="icon-sm"
+              />
             </div>
-            <div>
-              <span className="font-medium">Months (approx):</span>{" "}
-              {result.monthsApprox.toLocaleString()}
-              {result.monthsApprox > 0 && (
-                <span className="text-muted-foreground">
-                  {" "}
-                  ({Math.round(result.days % AVERAGE_DAYS_PER_MONTH)} days)
-                </span>
-              )}
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="font-medium">Months (approx):</span>{" "}
+                {result.monthsApprox.toLocaleString()}
+                {result.monthsApprox > 0 && (
+                  <span className="text-muted-foreground">
+                    {" "}
+                    ({Math.round(result.days % AVERAGE_DAYS_PER_MONTH)} days)
+                  </span>
+                )}
+              </div>
+              <CopyButton
+                value={result.monthsApprox.toString()}
+                label="months"
+                size="icon-sm"
+              />
             </div>
-            <div>
-              <span className="font-medium">Hours:</span>{" "}
-              {result.hours.toLocaleString()}
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="font-medium">Hours:</span>{" "}
+                {result.hours.toLocaleString()}
+              </div>
+              <CopyButton
+                value={result.hours.toString()}
+                label="hours"
+                size="icon-sm"
+              />
             </div>
-            <div>
-              <span className="font-medium">Minutes:</span>{" "}
-              {result.minutes.toLocaleString()}
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="font-medium">Minutes:</span>{" "}
+                {result.minutes.toLocaleString()}
+              </div>
+              <CopyButton
+                value={result.minutes.toString()}
+                label="minutes"
+                size="icon-sm"
+              />
             </div>
-            <div>
-              <span className="font-medium">Seconds:</span>{" "}
-              {result.seconds.toLocaleString()}
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="font-medium">Seconds:</span>{" "}
+                {result.seconds.toLocaleString()}
+              </div>
+              <CopyButton
+                value={result.seconds.toString()}
+                label="seconds"
+                size="icon-sm"
+              />
             </div>
           </div>
           <div className="text-muted-foreground mt-3 text-xs">
