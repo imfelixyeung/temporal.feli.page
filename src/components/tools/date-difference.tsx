@@ -11,6 +11,13 @@ import {
 import { useTimezoneStore } from "@/store/timezone";
 import { ButtonGroup, ButtonGroupText } from "../ui/button-group";
 
+/**
+ * Renders a UI for selecting a "From" and "To" date and displays their difference using the current timezone.
+ *
+ * Displays two date inputs (each with a "Current" button to set today's date), shows an error banner when calculation fails and either date is set, and shows a results panel when both dates produce a valid difference. The results panel includes days, weeks (with leftover days), approximate months (with leftover days), hours, minutes, seconds, and a note indicating the timezone used for the calculation.
+ *
+ * @returns The component UI containing the date controls, optional error banner, and the computed date-difference results panel.
+ */
 export default function DateDifference() {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
