@@ -22,6 +22,10 @@ export interface DateDifferenceResult {
   minutes: number;
   /** Number of complete seconds between the two dates */
   seconds: number;
+  /** Remaining days after accounting for complete weeks */
+  remainingDaysAfterWeeks: number;
+  /** Remaining days after accounting for complete months */
+  remainingDaysAfterMonths: number;
 }
 
 /**
@@ -68,6 +72,8 @@ export const calculateDateDifference = (
         hours: 0,
         minutes: 0,
         seconds: 0,
+        remainingDaysAfterWeeks: 0,
+        remainingDaysAfterMonths: 0,
       },
       error: "Both start and end dates are required",
     };
@@ -87,6 +93,8 @@ export const calculateDateDifference = (
         hours: 0,
         minutes: 0,
         seconds: 0,
+        remainingDaysAfterWeeks: 0,
+        remainingDaysAfterMonths: 0,
       },
       error: "Invalid date format. Please use YYYY-MM-DD format.",
     };
@@ -102,6 +110,8 @@ export const calculateDateDifference = (
         hours: 0,
         minutes: 0,
         seconds: 0,
+        remainingDaysAfterWeeks: 0,
+        remainingDaysAfterMonths: 0,
       },
       error: "End date must be after or equal to start date",
     };
@@ -133,6 +143,8 @@ export const calculateDateDifference = (
       hours,
       minutes,
       seconds,
+      remainingDaysAfterWeeks,
+      remainingDaysAfterMonths,
     },
     error: "",
   };
