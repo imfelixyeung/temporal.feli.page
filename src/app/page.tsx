@@ -1,4 +1,5 @@
 import Clock from "@/components/clock";
+import DateDifference from "@/components/tools/date-difference";
 import DateTimeToTimestamp from "@/components/tools/datetime-to-timestamp";
 import TimestampToDateTime from "@/components/tools/timestamp-to-datetime";
 
@@ -16,6 +17,11 @@ export default function Home() {
       <section className="space-y-2">
         <h2 className="text-xl font-semibold">Date Time to Unix Timestamp</h2>
         <DateTimeToTimestamp />
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="text-xl font-semibold">Date Difference Calculator</h2>
+        <DateDifference />
       </section>
     </div>
   );
