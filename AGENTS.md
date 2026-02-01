@@ -123,11 +123,72 @@ feat: add timestamp conversion tools with validation
 
 ---
 
-## Helpful Tips for Future Agents
+## Working on a GitHub Issue
 
-- Use `pnpm dev` for hot-reloading during development.
-- Run tests with Vitest (configured via `vitest.config.ts`; see test scripts).
-- Ensure all code follows the above style guidelines.
-- Refer to the README for deployment instructions on Vercel.
-- Always use conventional commits when committing changes.
-- Review and adhere to these guidelines strictly when contributing.
+When working on a GitHub issue, follow these steps to ensure a smooth and efficient workflow:
+
+1. **View the Issue**
+   - Use the GitHub CLI to view the issue details:
+     ```bash
+     gh issue view <number>
+     ```
+
+2. **Create a Development Branch**
+   - Create and switch to a development branch for the issue:
+     ```bash
+     gh issue develop --base main --checkout --name <branch-name>
+     ```
+
+3. **Plan the Implementation**
+   - Make a detailed plan on how to implement or fix the issue using a structured to-do list. Break down the work into actionable steps.
+
+4. **Start Development Work**
+   - Write the code for the feature or fix.
+   - Include any necessary unit tests to ensure the functionality is properly covered.
+
+5. **Ensure Code Quality**
+   - Run the following checks to ensure all code quality standards are met:
+     - **ESLint**: Check for linting errors.
+       ```bash
+       pnpm lint
+       ```
+     - **Prettier**: Verify code formatting.
+       ```bash
+       pnpm format:check
+       ```
+     - **TypeScript**: Perform type checking.
+       ```bash
+       pnpm exec tsc --noEmit
+       ```
+     - **Unit Tests**: Run all unit tests.
+       ```bash
+       pnpm test
+       ```
+     - **Next.js Build**: Ensure the project builds successfully.
+       ```bash
+       pnpm build
+       ```
+
+6. **Commit Your Changes**
+   - Stage and commit your changes following the Conventional Commits format (see the Git Commit Convention section):
+     ```bash
+     git add .
+     git commit -m "feat: <description>"
+     ```
+   - Replace `feat:` with the appropriate prefix (`fix:`, `docs:`, etc.) based on the nature of your changes.
+
+7. **Push Changes and Create a Pull Request**
+   - Use the GitHub CLI to create a pull request (this will push your changes automatically):
+     ```bash
+     gh pr create
+     ```
+
+8. **View Pull Request and Comments**
+   - View the pull request details:
+     ```bash
+     gh pr view <number>
+     ```
+   - View the pull request with comments:
+     ```bash
+     gh pr view <number> --comments
+     ```
