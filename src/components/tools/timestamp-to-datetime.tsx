@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
 import { Input } from "@/components/ui/input";
 import { convertTimestampToDatetime } from "@/lib/converters/timestamp-to-datetime";
 import { detectTimestampUnit } from "@/lib/detect-timestamp-unit";
@@ -75,7 +76,10 @@ export default function TimestampToDateTime() {
 
       {result && !error && (
         <div className="rounded-md border border-green-600/20 bg-green-600/10 p-3 text-sm">
-          <div className="mb-1 font-semibold">Converted Date/Time:</div>
+          <div className="mb-1 flex items-center justify-between">
+            <div className="font-semibold">Converted Date/Time:</div>
+            <CopyButton value={result} label="converted date/time" />
+          </div>
           <div className="font-mono whitespace-pre-line">{result}</div>
         </div>
       )}
