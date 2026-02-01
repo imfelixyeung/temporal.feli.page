@@ -22,10 +22,6 @@ export interface DateDifferenceResult {
   minutes: number;
   /** Number of complete seconds between the two dates */
   seconds: number;
-  /** Remaining days after accounting for complete weeks */
-  remainingDaysAfterWeeks: number;
-  /** Remaining days after accounting for complete months */
-  remainingDaysAfterMonths: number;
 }
 
 /** Empty result constant */
@@ -36,8 +32,6 @@ const emptyResult: DateDifferenceResult = {
   hours: 0,
   minutes: 0,
   seconds: 0,
-  remainingDaysAfterWeeks: 0,
-  remainingDaysAfterMonths: 0,
 };
 
 /**
@@ -64,7 +58,7 @@ const emptyResult: DateDifferenceResult = {
  *
  * // With timezone
  * const { result: result2 } = calculateDateDifference("2025-10-23", "2026-02-20", "UTC");
- * console.log(result2.weeks); // 17.14
+ * console.log(result2.weeks); // 17
  * ```
  *
  * @throws Does not throw errors, returns them in the error field instead
@@ -103,19 +97,28 @@ export const calculateDateDifference = (
   }
 
   // Convert to timezone-aware dates
-  const zonedStartDate = timezone
-    ? toZonedTime(startDateObj, timezone)
-    : startDateObj;
-  const zonedEndDate = timezone
-    ? toZonedTime(endDateObj, timezone)
-    : endDateObj;
+  let zonedStartDate: Date;
+  let zonedEndDate: Date;
+
+  if (timezone) {
+    try {
+      zonedStartDate = toZonedTime(startDateObj, timezone);
+      zonedEndDate = toZonedTime(endDateObj, timezone);
+    } catch {
+      return {
+        result: emptyResult,
+        error: "Invalid timezone",
+      };
+    }
+  } else {
+    zonedStartDate = startDateObj;
+    zonedEndDate = endDateObj;
+  }
 
   // Calculate differences using date-fns functions
   const days = differenceInDays(zonedEndDate, zonedStartDate);
   const weeks = Math.floor(days / 7);
-  const remainingDaysAfterWeeks = days % 7;
   const months = Math.floor(days / 30.44); // Average month length (365.25 / 12)
-  const remainingDaysAfterMonths = Math.round(days % 30.44);
   const hours = differenceInHours(zonedEndDate, zonedStartDate);
   const minutes = differenceInMinutes(zonedEndDate, zonedStartDate);
   const seconds = differenceInSeconds(zonedEndDate, zonedStartDate);
@@ -128,8 +131,6 @@ export const calculateDateDifference = (
       hours,
       minutes,
       seconds,
-      remainingDaysAfterWeeks,
-      remainingDaysAfterMonths,
     },
     error: "",
   };
