@@ -1,6 +1,6 @@
 import { TimestampUnit } from "@/schema/timestamp-units";
 import { format } from "date-fns";
-import { toZonedTime } from "date-fns-tz";
+import { TZDate } from "@date-fns/tz";
 
 export const convertTimestampToDatetime = (
   timestamp: string,
@@ -42,7 +42,7 @@ export const convertTimestampToDatetime = (
   // Format in user's timezone if provided
   if (timezone && timezone !== "UTC") {
     try {
-      const userDate = toZonedTime(date, timezone);
+      const userDate = new TZDate(date, timezone);
       results.push(
         `${timezone}: ${format(userDate, "yyyy-MM-dd HH:mm:ss (EEEE)")}`
       );
@@ -52,7 +52,7 @@ export const convertTimestampToDatetime = (
   }
 
   // Always include UTC
-  const utcDate = toZonedTime(date, "UTC");
+  const utcDate = new TZDate(date, "UTC");
   results.push(`UTC: ${format(utcDate, "yyyy-MM-dd HH:mm:ss (EEEE)")}`);
 
   return {
