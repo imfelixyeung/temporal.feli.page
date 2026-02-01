@@ -159,7 +159,7 @@ describe("calculateDateDifference", () => {
       );
 
       // Invalid timezone should result in invalid dates
-      expect(error).toBe("Invalid date format. Please use YYYY-MM-DD format.");
+      expect(error).toBe("Invalid timezone");
       expect(result.days).toBe(0);
     });
   });
