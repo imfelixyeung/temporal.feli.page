@@ -123,11 +123,55 @@ feat: add timestamp conversion tools with validation
 
 ---
 
-## Helpful Tips for Future Agents
+## Working on a GitHub Issue
 
-- Use `pnpm dev` for hot-reloading during development.
-- Run tests with Vitest (configured via `vitest.config.ts`; see test scripts).
-- Ensure all code follows the above style guidelines.
-- Refer to the README for deployment instructions on Vercel.
-- Always use conventional commits when committing changes.
-- Review and adhere to these guidelines strictly when contributing.
+When working on a GitHub issue, follow these steps to ensure a smooth and efficient workflow:
+
+1. **View the Issue**
+   - Use the GitHub CLI to view the issue details:
+     ```bash
+     gh issue view <number>
+     ```
+
+2. **Create a Development Branch**
+   - Create and switch to a development branch for the issue:
+     ```bash
+     gh issue develop --base main --checkout --name <branch-name>
+     ```
+
+3. **Plan the Implementation**
+   - Make a detailed plan on how to implement or fix the issue using a structured todo list. Break down the work into actionable steps.
+
+4. **Start Development Work**
+   - Write the code for the feature or fix.
+   - Include any necessary unit tests to ensure the functionality is properly covered.
+
+5. **Ensure Code Quality**
+   - Run the following checks to ensure all code quality standards are met:
+     - **ESLint**: Check for linting errors.
+       ```bash
+       pnpm run lint
+       ```
+     - **Prettier**: Verify code formatting.
+       ```bash
+       pnpm run format:check
+       ```
+     - **TypeScript**: Perform type checking.
+       ```bash
+       pnpm exec tsc --noEmit
+       ```
+     - **Unit Tests**: Run all unit tests.
+       ```bash
+       pnpm run test
+       ```
+     - **Next.js Build**: Ensure the project builds successfully.
+       ```bash
+       pnpm run build
+       ```
+
+6. **Push Changes and Create a Pull Request**
+   - Push the changes to the remote branch.
+   - Use the GitHub CLI to create a pull request:
+     ```bash
+     gh pr create
+     ```
