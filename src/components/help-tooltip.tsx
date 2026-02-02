@@ -14,6 +14,15 @@ interface HelpTooltipProps {
   className?: string;
 }
 
+/**
+ * Render an info icon that shows a tooltip with the provided content.
+ *
+ * @param content - The content to display inside the tooltip.
+ * @param side - Position of the tooltip relative to the trigger (default: "top").
+ * @param align - Alignment of the tooltip relative to the trigger (default: "center").
+ * @param className - Optional additional CSS classes applied to the tooltip content.
+ * @returns A React element rendering an information icon that opens a tooltip containing `content`.
+ */
 export function HelpTooltip({
   content,
   side = "top",
