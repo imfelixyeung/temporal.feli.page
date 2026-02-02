@@ -11,6 +11,7 @@ import {
 } from "@/lib/converters/date-difference";
 import { useTimezoneStore } from "@/store/timezone";
 import { ButtonGroup, ButtonGroupText } from "../ui/button-group";
+import { HelpTooltip } from "../help-tooltip";
 
 /**
  * Renders a UI for selecting a "From" and "To" date and displays their difference using the current timezone.
@@ -130,7 +131,13 @@ Seconds: ${result.seconds.toLocaleString()}`}
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <span className="font-medium">Months (approx):</span>{" "}
+                <span className="flex items-center gap-1">
+                  <span className="font-medium">Months (approx):</span>
+                  <HelpTooltip
+                    content="Months are calculated as approximate values using 30.44 days per month, since months vary in length (28-31 days)."
+                    side="top"
+                  />
+                </span>{" "}
                 {result.monthsApprox.toLocaleString()}
                 {result.monthsApprox > 0 && (
                   <span className="text-muted-foreground">
