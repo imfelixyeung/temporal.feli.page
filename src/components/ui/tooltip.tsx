@@ -4,6 +4,12 @@ import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Wraps and renders a Tooltip provider with a configurable default delay and forwarded props.
+ *
+ * @param delay - Milliseconds to wait before showing the tooltip (default: 0)
+ * @returns A TooltipPrimitive.Provider element with `data-slot="tooltip-provider"`, the configured `delay`, and all other props forwarded
+ */
 function TooltipProvider({
   delay = 0,
   ...props
@@ -17,6 +23,13 @@ function TooltipProvider({
   );
 }
 
+/**
+ * Composes a tooltip root by wrapping TooltipPrimitive.Root with a TooltipProvider and applying an optional delay.
+ *
+ * @param delay - The tooltip show/hide delay in milliseconds; defaults to 0.
+ * @param props - Remaining props forwarded to TooltipPrimitive.Root.
+ * @returns The composed tooltip root element (TooltipPrimitive.Root wrapped in TooltipProvider).
+ */
 function Tooltip({
   delay = 0,
   ...props
@@ -28,10 +41,26 @@ function Tooltip({
   );
 }
 
+/**
+ * Render a tooltip trigger element that forwards received props and sets data-slot="tooltip-trigger".
+ *
+ * @returns The tooltip trigger element with forwarded props
+ */
 function TooltipTrigger({ ...props }: TooltipPrimitive.Trigger.Props) {
   return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
 }
 
+/**
+ * Renders the tooltip content and arrow with default placement, offsets, styling, and entry/exit animations.
+ *
+ * @param className - Additional CSS classes to apply to the tooltip popup
+ * @param side - Preferred side of the trigger to place the tooltip (default: "top")
+ * @param sideOffset - Distance in pixels between trigger and tooltip along the chosen side (default: 4)
+ * @param align - Alignment of the tooltip relative to the trigger on the cross axis (default: "center")
+ * @param alignOffset - Offset in pixels applied to the alignment (default: 0)
+ * @param children - Content to be rendered inside the tooltip popup
+ * @returns The rendered tooltip content element including the popup and arrow
+ */
 function TooltipContent({
   className,
   side = "top",
