@@ -11,13 +11,14 @@ import {
 } from "@/lib/converters/date-difference";
 import { useTimezoneStore } from "@/store/timezone";
 import { ButtonGroup, ButtonGroupText } from "../ui/button-group";
+import { HelpTooltip } from "../help-tooltip";
 
 /**
- * Renders a UI for selecting a "From" and "To" date and displays their difference using the current timezone.
+ * Renders a UI for selecting a start ("From") and end ("To") date and viewing their difference using the current timezone.
  *
- * Displays two date inputs (each with a "Current" button to set today's date), shows an error banner when calculation fails and either date is set, and shows a results panel when both dates produce a valid difference. The results panel includes days, weeks (with leftover days), approximate months (with leftover days), hours, minutes, seconds, and a note indicating the timezone used for the calculation.
+ * Shows two date inputs (each with a "Current" button to set today), displays an error banner when calculation fails and at least one date is set, and displays a results panel when both dates produce a valid difference. The results panel includes days, weeks (with leftover days), approximate months (with leftover days), hours, minutes, seconds, and a note indicating the timezone used for the calculation.
  *
- * @returns The component UI containing the date controls, optional error banner, and the computed date-difference results panel.
+ * @returns The component UI containing the date controls, an optional error banner, and the computed date-difference results panel.
  */
 export default function DateDifference() {
   const [startDate, setStartDate] = useState<string>("");
@@ -130,7 +131,13 @@ Seconds: ${result.seconds.toLocaleString()}`}
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <span className="font-medium">Months (approx):</span>{" "}
+                <span className="flex items-center gap-1">
+                  <span className="font-medium">Months (approx):</span>
+                  <HelpTooltip
+                    content="Months are calculated as approximate values using 30.44 days per month, since months vary in length (28-31 days)."
+                    side="top"
+                  />
+                </span>{" "}
                 {result.monthsApprox.toLocaleString()}
                 {result.monthsApprox > 0 && (
                   <span className="text-muted-foreground">
