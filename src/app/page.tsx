@@ -2,6 +2,7 @@ import Clock from "@/components/clock";
 import DateDifference from "@/components/tools/date-difference";
 import DateTimeToTimestamp from "@/components/tools/datetime-to-timestamp";
 import TimestampToDateTime from "@/components/tools/timestamp-to-datetime";
+import { HelpTooltip } from "@/components/help-tooltip";
 
 /**
  * Renders the Home page containing a live clock and three timestamp utilities: Unix Timestamp to Date Time, Date Time to Unix Timestamp, and Date Difference Calculator.
@@ -15,17 +16,35 @@ export default function Home() {
       <Clock />
 
       <section className="space-y-2">
-        <h2 className="text-xl font-semibold">Unix Timestamp to Date Time</h2>
+        <h2 className="flex items-center gap-2 text-xl font-semibold">
+          Unix Timestamp to Date Time
+          <HelpTooltip
+            content="Convert Unix timestamps (seconds or milliseconds since Jan 1, 1970) to human-readable date/time format. Supports auto-detection of timestamp units."
+            side="right"
+          />
+        </h2>
         <TimestampToDateTime />
       </section>
 
       <section className="space-y-2">
-        <h2 className="text-xl font-semibold">Date Time to Unix Timestamp</h2>
+        <h2 className="flex items-center gap-2 text-xl font-semibold">
+          Date Time to Unix Timestamp
+          <HelpTooltip
+            content="Convert date and time to Unix timestamp format. The result shows seconds elapsed since January 1, 1970 00:00:00 UTC."
+            side="right"
+          />
+        </h2>
         <DateTimeToTimestamp />
       </section>
 
       <section className="space-y-2">
-        <h2 className="text-xl font-semibold">Date Difference Calculator</h2>
+        <h2 className="flex items-center gap-2 text-xl font-semibold">
+          Date Difference Calculator
+          <HelpTooltip
+            content="Calculate the difference between two dates in various units: days, weeks, months (approximate), hours, minutes, and seconds. Uses your current timezone for calculations."
+            side="right"
+          />
+        </h2>
         <DateDifference />
       </section>
     </div>
