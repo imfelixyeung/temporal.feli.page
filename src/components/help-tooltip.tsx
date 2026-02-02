@@ -5,7 +5,6 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  TooltipProvider,
 } from "@/components/ui/tooltip";
 
 interface HelpTooltipProps {
@@ -22,15 +21,16 @@ export function HelpTooltip({
   className,
 }: HelpTooltipProps) {
   return (
-    <TooltipProvider delay={300}>
-      <Tooltip>
-        <TooltipTrigger>
-          <InfoIcon className="text-muted-foreground inline-block h-4 w-4 cursor-help" />
-        </TooltipTrigger>
-        <TooltipContent side={side} align={align} className={className}>
-          {content}
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Tooltip delay={300}>
+      <TooltipTrigger aria-label="Help">
+        <InfoIcon
+          className="text-muted-foreground inline-block h-4 w-4 cursor-help"
+          aria-hidden="true"
+        />
+      </TooltipTrigger>
+      <TooltipContent side={side} align={align} className={className}>
+        {content}
+      </TooltipContent>
+    </Tooltip>
   );
 }
